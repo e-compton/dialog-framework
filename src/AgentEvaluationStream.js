@@ -1,6 +1,6 @@
 'use strict';
 
-const debug = require('debug')('dialog-framework/core/AgentEvaluationStream');
+const debug = require('debug')('dialog-framework/AgentEvaluationStream');
 const { Readable } = require('stream');
 
 class AgentEvaluationStream extends Readable {
@@ -8,20 +8,29 @@ class AgentEvaluationStream extends Readable {
     return new AgentEvaluationStream(...arguments);
   }
 
+  static async runAnnotators(annotators, dialog) {
+    for (let annotator of annotators) {
+      dialog = await annotator(dialog);
+    }
+    return dialog;
+  }
+
   constructor(annotators, agents, dialog) {
     super({ objectMode: true });
-    this.annotators = annotators;
     this.agents = agents;
     this.dialog = dialog;
     this.rootAgentCount = 0;
     this.done = false;
+    this.annotatorsComplete = AgentEvaluationStream.runAnnotators(annotators, dialog);
   }
 
-  _read(cb) {
-    this.__read().then(cb).catch(err => this.emit('error', err));
+  _read() {
+    this.__read().then().catch(err => this.emit('error', err));
   }
 
   async __read() {
+    await this.annotatorsComplete;
+
     if (this.done) {
       debug('Evaluation Complete');
       return this.push(null);
@@ -29,7 +38,7 @@ class AgentEvaluationStream extends Readable {
 
     let agentResult = {};
     let agentDescriptor = this.dialog.pop();
-    
+
     if (!agentDescriptor) {
       this.dialog.push('root');
       this.rootAgentCount += 1;

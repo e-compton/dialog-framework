@@ -12,23 +12,23 @@ class Chatbot {
   }
 
   chat(message, context) {
-    let dialog = new Dialog(context, message);
+    let dialog = new Dialog(message, context);
     return AgentEvaluationStream.create(this.annotators, this.agents, dialog);
   }
 
   registerAgent(label, agent) {
-    if (this.agentStore[label]) {
+    if (this.agents[label]) {
       debug(`Warning: Agent ${label} already registered, overwriting`);
     }
-    this.agentStore[label] = agent;
+    this.agents[label] = agent;
   }
 
   registerRootAgent(agent) {
-    this.registerAgent(agent);
+    this.registerAgent('root', agent);
   }
 
   registerAnnotator(annotator) {
-    this.annotatorStore.push(annotator);
+    this.annotators.push(annotator);
   }
 }
 

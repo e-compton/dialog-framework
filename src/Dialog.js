@@ -1,5 +1,7 @@
 'use strict';
 
+const debug = require('debug')('dialog-framework/Dialog');
+
 /** Represents the current state of the dialog flow. */
 class Dialog {
 
@@ -45,7 +47,12 @@ class Dialog {
     * @returns {AgentDescription}
     */
   pop() {
-    return this.lastPopped = this.context.system._stack.pop();
+    let popped = this.context.system._stack.pop();
+    if (popped) {
+      this.lastPopped = popped;
+    }
+    debug('Popped agent:', popped);
+    return popped;
   }
 
   /**
@@ -56,9 +63,11 @@ class Dialog {
   push(agentLabel) {
     if (agentLabel === this.lastPopped.agentLabel) {
       this.lastPopped.loop += 1;
+      debug(`Pushing ${agentLabel} with count ${this.lastPopped.loop}`);
       return this.context.system._stack.push(this.lastPopped);
     }
 
+    debug(`Pushing ${agentLabel}`);
     return this.context.system._stack.push({
       agentLabel,
       loop: 0
