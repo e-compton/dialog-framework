@@ -8,5 +8,5 @@ jobs:
       script: npm run lint
     - stage: test
       script: npm run test
-    - stage: coverage
-      script: npm run coverage
+
+after_success: npm run coveralls

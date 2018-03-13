@@ -1,7 +1,8 @@
 # Dialog Framework
 
-[![Build Status via TravisCI](https://img.shields.io/travis/e-compton/dialog-framework.svg?style=flat-square)](https://travis-ci.org/e-compton/dialog-framework)
 [![NPM Version](https://img.shields.io/npm/v/dialog-framework.svg?style=flat-square)](https://www.npmjs.com/package/dialog-framework)
+[![Build Status via TravisCI](https://img.shields.io/travis/e-compton/dialog-framework.svg?style=flat-square)](https://travis-ci.org/e-compton/dialog-framework)
+[![Coverage Status](	https://img.shields.io/coveralls/github/e-compton/dialog-framework.svg?style=flat-square)](https://coveralls.io/github/e-compton/dialog-framework?branch=master)
 
 Dialog Framework is a framework for building complex asynchronous javascript
 chatbots in node.js. It is designed to work in stateless systems and to provide as much flexibility to the user as possible.
@@ -30,7 +31,7 @@ response.on('data', (data) => console.log(data.message)); // hello world
 ```
 
 ## Annotators and Agents
-Chatbots consists of two components *Annotators* and *Agents*.
+Chatbots consist of two *Annotators* and *Agents*.
 
 An annotator is any function that takes an instance of `Dialog` as input and returns a promise that resolves to the same dialog.
 
@@ -99,11 +100,10 @@ The `pop()` function is also included if you want to remove agents from the
 stack, but this is mainly used internally and would not be used in typical programs.
 
 ## Development
-The package.json includes scripts for running istanbul coverage, eslint and mocha tests:
+The package.json includes scripts for eslint and tests with coverage:
 ```sh
 npm run lint
 npm run test
-npm run coverage
 ```
 
 ### ToDo
