@@ -6,9 +6,13 @@ const Dialog = require('./Dialog');
 const AgentEvaluationStream = require('./AgentEvaluationStream');
 
 class Chatbot {
-  constructor() {
-    this.agents = {};
-    this.annotators = [];
+  static create() {
+    return new Chatbot(...arguments);
+  }
+
+  constructor(annotators, agents) {
+    this.annotators = annotators || [];
+    this.agents = agents || {};
   }
 
   chat(message, context) {

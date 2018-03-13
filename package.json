@@ -23,5 +23,7 @@
     "sinon": "^4.4.2",
     "typescript": "^2.7.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "conversation": "^0.2.1"
+  }
 }

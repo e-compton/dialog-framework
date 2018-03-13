@@ -3,6 +3,8 @@
 const debug = require('debug')('dialog-framework/AgentEvaluationStream');
 const { Readable } = require('stream');
 
+const MAX_AGENT_EVALUATED = 100;
+
 class AgentEvaluationStream extends Readable {
   static create() {
     return new AgentEvaluationStream(...arguments);
@@ -20,6 +22,7 @@ class AgentEvaluationStream extends Readable {
     this.agents = agents;
     this.dialog = dialog;
     this.rootAgentCount = 0;
+    this.evaluatedCount = 0;
     this.done = false;
     this.annotatorsComplete = AgentEvaluationStream.runAnnotators(annotators, dialog);
   }
@@ -59,6 +62,11 @@ class AgentEvaluationStream extends Readable {
 
     debug('Calling agent:', agentLabel);
     agentResult = await agent(this.dialog) || {};
+    this.evaluatedCount += 1;
+
+    if (this.evaluatedCount > MAX_AGENT_EVALUATED) {
+      throw new Error(`Maximum agent evaluation exceeded (${MAX_AGENT_EVALUATED}). Is this an infinite loop?`);
+    }
 
     debug(agentLabel, 'resolved to', agentResult);
     this.done = !!agentResult.prompt || false;
