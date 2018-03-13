@@ -1,5 +1,8 @@
 # Dialog Framework
 
+[![Build Status via TravisCI](https://img.shields.io/travis/e-compton/dialog-framework.svg?style=flat-square)](https://travis-ci.org/e-compton/dialog-framework)
+[![NPM Version](https://img.shields.io/npm/v/dialog-framework.svg?style=flat-square)](https://www.npmjs.com/package/dialog-framework)
+
 Dialog Framework is a framework for building complex asynchronous javascript
 chatbots in node.js. It is designed to work in stateless systems and to provide as much flexibility to the user as possible.
 
