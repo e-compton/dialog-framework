@@ -96,8 +96,9 @@ The `pop()` function is also included if you want to remove agents from the
 stack, but this is mainly used internally and would not be used in typical programs.
 
 ## Development
-The package.json includes scripts for running istanbul coverage and mocha tests:
-```
+The package.json includes scripts for running istanbul coverage, eslint and mocha tests:
+```sh
+npm run lint
 npm run test
 npm run coverage
 ```

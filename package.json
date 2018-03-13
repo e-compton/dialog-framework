@@ -7,14 +7,17 @@
     "example": "example",
     "test": "test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/e-compton/dialog-framework.git"
+  },
+  "license": "ISC",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha test/*",
     "lint": "node_modules/.bin/eslint index.js",
-    "doc": "node_modules/.bin/jsdoc",
     "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha -- -u exports -R spec test/*"
   },
   "author": "Edward Compton",
-  "license": "ISC",
   "devDependencies": {
     "@types/node": "^9.4.6",
     "eslint": "^4.17.0",
