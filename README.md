@@ -31,7 +31,7 @@ response.on('data', (data) => console.log(data.message)); // hello world
 ```
 
 ## Annotators and Agents
-Chatbots consist of two *Annotators* and *Agents*.
+Chatbots consist of two components, *Annotators* and *Agents*.
 
 An annotator is any function that takes an instance of `Dialog` as input and returns a promise that resolves to the same dialog.
 
@@ -63,7 +63,7 @@ agents['greetings'] = async function (dialog) {
 
 ## The annotator and agent evaluation
 Calling `chat()` on an instance of `Chatbot` will return an `AgentEvaluationStream` that runs the following algorithm:
-1. Create new `Dialog` with the previous context (if supplied).
+1. Create new `Dialog` with the default context (or previous context if supplied).
 2. Run each annotator in series.
 3. If the stack is empty push the root agent.
 4. Pop an agent from the stack and run it.
